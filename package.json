@@ -5,7 +5,7 @@
   "homepage": "https://github.com/dcjwu/PDFGenerator-nextjs",
   "engines": {
     "node": ">=16.14.0",
-    "yarn": ">=1.22.18",
+    "yarn": ">=1.22.17",
     "npm": "please-use-yarn"
   },
   "scripts": {
