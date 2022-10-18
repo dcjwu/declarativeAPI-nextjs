@@ -37,11 +37,17 @@ model Session {
   @@map("sessions")
 }
 
+enum Role {
+    ADMIN
+    USER
+}
+
 model User {
   id                        String      @id @default(cuid())
   name                      String
   email                     String      @unique
   password                  String
+  role                      Role        @default(USER)
 
   imageUrl                  String?
 
