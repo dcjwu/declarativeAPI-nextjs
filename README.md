@@ -1,6 +1,7 @@
 # PDF Generator Internal App
 
-- [ ] Prisma and Supabase DB
-- [ ] NextAuth Login
+- [x] Prisma and Supabase DB
+- [x] NextAuth Login API
+- [ ] NextAuth Login Page (+error in UI), Logout page
 - [ ] MUI Design
 - [ ] Generate PDFs
