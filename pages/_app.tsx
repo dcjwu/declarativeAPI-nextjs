@@ -1,8 +1,22 @@
-import '../styles/globals.css'
-import type { AppProps } from 'next/app'
+import React from "react"
 
-function MyApp({ Component, pageProps }: AppProps) {
-  return <Component {...pageProps} />
+import { CssBaseline } from "@mui/material"
+
+import type { AppProps } from "next/app"
+
+const MyApp = ({
+   Component,
+   pageProps
+}: AppProps): JSX.Element => {
+
+   return (
+      <React.Fragment>
+
+         <CssBaseline/>
+         <Component {...pageProps}/>
+
+      </React.Fragment>
+   )
 }
 
 export default MyApp
