@@ -1,8 +1,10 @@
+import { NextResponse } from "next/server"
+
 import { prisma } from "@service/prisma"
 
 export const config = { runtime: "experimental-edge", }
 
-export default async function handler(): Promise<Response> {
+export default async function handler(): Promise<NextResponse> {
 
    try {
       const users = await prisma.user.findMany({
@@ -17,22 +19,10 @@ export default async function handler(): Promise<Response> {
          },
          orderBy: { createdAt: "desc" }
       })
-
-      return new Response(
-         JSON.stringify(users),
-         {
-            status: 200,
-            headers: { "content-type": "application/json", },
-         }
-      )
+      
+      return NextResponse.json(users, { status: 200, headers: { "Cache-Control": "s-maxage=300" } })
 
    } catch (err) {
-      return new Response(
-         JSON.stringify({ message: err.message }),
-         {
-            status: 400,
-            headers: { "content-type": "application/json", },
-         }
-      )
+      return NextResponse.json({ message: err.message }, { status: 400 })
    }
 }
