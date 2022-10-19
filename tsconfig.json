@@ -18,6 +18,8 @@
     "outDir": "dist",
     "baseUrl": ".",
     "useUnknownInCatchVariables": false,
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
     "paths": {
       "@components/*": ["src/components/*"],
       "@constants/*": ["src/constants/*"],
