@@ -1,6 +1,7 @@
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
+  previewFeatures = ["interactiveTransactions", "metrics", "tracing"]
 }
 
 generator client {
