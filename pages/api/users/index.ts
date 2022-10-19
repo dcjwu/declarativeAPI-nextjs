@@ -10,8 +10,6 @@ import type { NextApiRequest, NextApiResponse } from "next"
 
 const bcrypt = require("bcrypt") // eslint-disable-line @typescript-eslint/no-var-requires
 
-export const config = { api: { externalResolver: true }, runtime: "experimental-edge" }
-
 const PostUserDto = Joi.object({
    name: Joi
       .string()
