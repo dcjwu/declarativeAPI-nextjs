@@ -1,7 +1,6 @@
 import Joi from "joi"
 import { createRouter } from "next-connect"
 
-import { adminMiddleware } from "@middleware/admin.middleware"
 import { validationMiddleware } from "@middleware/validation.middleware"
 import { fieldErrorMessages, objectErrorMessages, } from "@service/joi"
 import { prisma } from "@service/prisma"
@@ -33,7 +32,6 @@ const PostUserDto = Joi.object({
 const router = createRouter<NextApiRequest, NextApiResponse>()
 
 router
-   .use(adminMiddleware)
 
    .get(async (req: NextApiRequest, res: NextApiResponse): Promise<void> => {
       try {
