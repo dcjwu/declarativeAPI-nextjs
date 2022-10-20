@@ -29,7 +29,7 @@ export const authOptions: NextAuthOptions = {
                const isPasswordCorrect = await bcrypt.compareSync(credentials.password, user.password)
                if (isPasswordCorrect) return user
 
-               else return null
+               return null
 
             } catch (err) {
                console.error(err.message)
@@ -58,7 +58,7 @@ export const authOptions: NextAuthOptions = {
                session.user.role = currentUser.role
                return session
 
-            } else return session
+            } return session
 
          } catch (err) {
             console.error(err.message)
