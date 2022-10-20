@@ -6,13 +6,15 @@ import {
    Get,
    HttpCode,
    NotFoundException,
-   Param,
    Patch,
-   Post, UseMiddleware,
+   Post,
+   UnprocessableEntityException,
+   UseMiddleware,
    ValidationPipe
 } from "next-api-decorators"
 
 import { CurrentUser } from "@decorators/currentUser.decorator"
+import { ChangePasswordDto } from "@dto/changePassword.dto"
 import { CreateUserDto } from "@dto/createUser.dto"
 import { UpdateUserDto } from "@dto/updateUser.dto"
 import { AdminGuard } from "@guards/admin.guard"
@@ -20,7 +22,6 @@ import { AuthMiddleware } from "@middleware/auth.middleware"
 import { prisma } from "@service/prisma"
 
 import type { IUser } from "@interfaces/user.interface"
-import type { User } from "@prisma/client"
 
 const bcrypt = require("bcrypt") // eslint-disable-line @typescript-eslint/no-var-requires
 
@@ -81,19 +82,16 @@ class UserHandler {
       }
    }
 
-   @Patch("/:id")
+   @Patch()
    @HttpCode(200)
    public async updatedUser(
-      @Param("id") id: string,
       @Body(ValidationPipe) body: UpdateUserDto,
-      @CurrentUser() currentUser: User | null
+      @CurrentUser() currentUser: IUser | null
    ): Promise<IUser> {
       if (currentUser) {
-         if (currentUser.id !== id) throw new ForbiddenException()
-
          const { name, imageUrl } = body
          return prisma.user.update({
-            where: { id: id },
+            where: { id: currentUser.id },
             data: {
                name,
                imageUrl
@@ -109,7 +107,7 @@ class UserHandler {
             }
          })
 
-      } else throw new NotFoundException("User not found")
+      } throw new NotFoundException("User not found")
    }
 
    @Get("/me")
@@ -118,6 +116,40 @@ class UserHandler {
       @CurrentUser() currentUser: IUser | null
    ): Promise<IUser> {
       if (currentUser) return currentUser
+      
+      throw new NotFoundException("User not found")
+   }
+
+   @Patch("/change-password")
+   @HttpCode(200)
+   public async changePassword(
+      @Body(ValidationPipe) body: ChangePasswordDto,
+      @CurrentUser() currentUser: IUser | null
+   ): Promise<IUser> {
+      if (currentUser) {
+         const { oldPassword, newPassword } = body
+         const userProfile = await prisma.user.findUnique({ where: { id: currentUser.id } })
+         if (!userProfile) throw new NotFoundException("User not found")
+
+         const isPasswordCorrect = await bcrypt.compareSync(oldPassword, userProfile.password)
+         if (!isPasswordCorrect) throw new UnprocessableEntityException("Incorrect password")
+
+         const newPasswordHash = await bcrypt.hashSync(newPassword, 10)
+         return await prisma.user.update({
+            where: { id: currentUser.id },
+            data: { password: newPasswordHash },
+            select: {
+               id: true,
+               email: true,
+               name: true,
+               role: true,
+               imageUrl: true,
+               createdAt: true,
+               updatedAt: true
+            }
+         })
+      }
+      
       throw new NotFoundException("User not found")
    }
 }
