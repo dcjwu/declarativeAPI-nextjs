@@ -17,5 +17,6 @@ export class CreateUserDto {
 
    @IsString()
    @IsOptional()
+   @IsNotEmpty()
    public readonly imageUrl?: string
 }

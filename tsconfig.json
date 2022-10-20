@@ -24,7 +24,9 @@
     "paths": {
       "@components/*": ["src/components/*"],
       "@constants/*": ["src/constants/*"],
+      "@decorators/*": ["src/decorators/*"],
       "@dto/*": ["src/dto/*"],
+      "@guards/*": ["src/guards/*"],
       "@hooks/*": ["src/hooks/*"],
       "@interfaces/*": ["src/interfaces/*"],
       "@layouts/*": ["src/layouts/*"],
