@@ -8,6 +8,8 @@ const bcrypt = require("bcrypt") // eslint-disable-line @typescript-eslint/no-va
 
 const timeAlive = 15 * 60 // Session will be idle after 15min of inactivity
 
+//TODO: Make proper error handling at least at UI when credentials are incorrect in any way
+
 export const authOptions: NextAuthOptions = {
    adapter: PrismaAdapter(prisma),
    providers: [
