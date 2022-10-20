@@ -20,9 +20,11 @@
     "useUnknownInCatchVariables": false,
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
+    "strictPropertyInitialization": false,
     "paths": {
       "@components/*": ["src/components/*"],
       "@constants/*": ["src/constants/*"],
+      "@dto/*": ["src/dto/*"],
       "@hooks/*": ["src/hooks/*"],
       "@interfaces/*": ["src/interfaces/*"],
       "@layouts/*": ["src/layouts/*"],
