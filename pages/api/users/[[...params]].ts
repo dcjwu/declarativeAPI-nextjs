@@ -9,7 +9,6 @@ import {
    Patch,
    Post,
    UnprocessableEntityException,
-   UseMiddleware,
    ValidationPipe
 } from "next-api-decorators"
 
@@ -18,19 +17,18 @@ import { ChangePasswordDto } from "@dto/changePassword.dto"
 import { CreateUserDto } from "@dto/createUser.dto"
 import { UpdateUserDto } from "@dto/updateUser.dto"
 import { AdminGuard } from "@guards/admin.guard"
-import { AuthMiddleware } from "@middleware/auth.middleware"
 import { prisma } from "@service/prisma"
 
 import type { IUser } from "@interfaces/user.interface"
 
 const bcrypt = require("bcrypt") // eslint-disable-line @typescript-eslint/no-var-requires
 
-@UseMiddleware(AuthMiddleware)
+// @UseMiddleware(AuthMiddleware)
 class UserHandler {
    
    @Get()
    @HttpCode(200)
-   @AdminGuard()
+   // @AdminGuard()
    public async getAllUsers(): Promise<IUser[]> {
       return await prisma.user.findMany({
          select: {
