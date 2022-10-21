@@ -8,7 +8,8 @@ import {
    NotFoundException,
    Patch,
    Post,
-   UnprocessableEntityException, UseMiddleware,
+   SetHeader,
+   UnprocessableEntityException,
    ValidationPipe
 } from "next-api-decorators"
 
@@ -17,7 +18,6 @@ import { ChangePasswordDto } from "@dto/changePassword.dto"
 import { CreateUserDto } from "@dto/createUser.dto"
 import { UpdateUserDto } from "@dto/updateUser.dto"
 import { AdminGuard } from "@guards/admin.guard"
-import { CorsMiddleware } from "@middleware/cors.middleware"
 import { prisma } from "@service/prisma"
 
 import type { IUser } from "@interfaces/user.interface"
@@ -25,7 +25,7 @@ import type { IUser } from "@interfaces/user.interface"
 const bcrypt = require("bcrypt") // eslint-disable-line @typescript-eslint/no-var-requires
 
 // @UseMiddleware(AuthMiddleware)
-@UseMiddleware(CorsMiddleware)
+@SetHeader("Access-Control-Allow-Origin", "http://www.example.com")
 class UserHandler {
    
    @Get()
