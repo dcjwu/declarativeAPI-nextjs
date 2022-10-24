@@ -25,7 +25,8 @@ import type { IUser } from "@interfaces/user.interface"
 const bcrypt = require("bcrypt") // eslint-disable-line @typescript-eslint/no-var-requires
 
 // @UseMiddleware(AuthMiddleware)
-@SetHeader("Access-Control-Allow-Origin", "http://www.example.com")
+@SetHeader("Access-Control-Allow-Origin", "https://www.example.com")
+@SetHeader("Access-Control-Allow-Methods", "POST, GET")
 class UserHandler {
    
    @Get()
