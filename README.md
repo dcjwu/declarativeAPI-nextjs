@@ -1,7 +1,10 @@
-# PDF Generator Internal App
+#### Context:
+__October 2022.__ Just having fun trying to implement declarative styled API using npm package with Next.js.
 
-- [x] Prisma and Supabase DB
-- [x] NextAuth Login API
-- [ ] NextAuth Login Page (+error in UI), Logout page
-- [ ] MUI Design
-- [ ] Generate PDFs
+#### Technologies used:
+- Next.js
+- Prisma ORM
+- Supabase
+
+#### Status:
+Project is abonded.
